@@ -1,0 +1,23 @@
+name: Detect Edited Files with Sec Alerts
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  pull-requests: read
+  checks: read
+  statuses: read 
+
+jobs:
+  detect_merge_bypass:
+    name: Detect Edited Files with Sec Alerts
+    runs-on: ubuntu-latest
+
+    steps:
+      # Run the custom action
+      - name: Run Action
+        uses: ./ # Use the current repository as the action
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
