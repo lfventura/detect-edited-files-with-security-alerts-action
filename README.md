@@ -54,18 +54,65 @@ jobs:
       - name: Run detect-edited-files-with-security-alerts-action
         uses: lfventura/detect-edited-files-with-security-alerts-action@v1
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          github_token: ${{ secrets.GH_PAT }}
 ```
 
-## Local Development
+## Development
 
-To test the action locally, you can use the following command:
+### Installation
+
+Clone the repository and install dependencies:
 
 ```bash
-node dist/index.js
+git clone https://github.com/lfventura/detect-merge-bypass-action.git
+cd detect-merge-bypass-action
+npm install
 ```
 
-Make sure to provide an `event.json` file with the required context.
+### Linting
+
+Check the code for linting issues:
+
+```bash
+npm run lint
+```
+
+Automatically fix linting issues:
+
+```bash
+npm run lintfix
+```
+
+### Build
+
+Build the project for production:
+
+```bash
+npm run build
+```
+
+## How it works
+
+This GitHub Action is designed to detect if any files modified in a commit or pull request are associated with security alerts. Here's how it works:
+
+1. **Fetches changed files**:
+   - The action retrieves the list of files modified between two commits (`before_sha` and `current_sha`) using the GitHub API.
+
+2. **Retrieves security alerts**:
+   - **Code Scanning Alerts**: The action fetches open Code Scanning alerts in the repository and identifies the files associated with these alerts.
+   - **Dependabot Alerts**: The action retrieves Dependabot alerts and identifies the manifest files related to these alerts.
+
+3. **Compares the files**:
+   - The action compares the list of modified files with the files associated with security alerts (from Code Scanning and Dependabot).
+   - If any modified file matches a file associated with a security alert, it is flagged as impacted.
+
+4. **Sets the output**:
+   - The action sets the output variable `impacted_file_touched` to `true` if any impacted files were modified, otherwise `false`.
+
+5. **Logs the results**:
+   - The action logs detailed information about the matching files and the final decision (`impacted_file_touched` value) for debugging and transparency.
+
+This process ensures that any changes to files with active security alerts are detected and flagged for further review.
 
 ## License
 

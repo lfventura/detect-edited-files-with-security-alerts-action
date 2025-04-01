@@ -23,4 +23,4 @@ jobs:
       - name: Run Action
         uses: ./ # Use the current repository as the action
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          github_token: ${{ secrets.GH_PAT }} # Unfortunately, the GITHUB_TOKEN does not looks like functional for dependabot, use PAT instead. https://github.com/orgs/community/discussions/60612
