@@ -57,6 +57,8 @@ jobs:
           github_token: ${{ secrets.GH_PAT }}
 ```
 
+The GH_PAT token should contain the following permissions: Read access to Dependabot alerts, code, metadata, pull requests, and security events.
+
 ## Development
 
 ### Installation
