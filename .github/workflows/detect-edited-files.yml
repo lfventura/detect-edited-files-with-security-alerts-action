@@ -9,6 +9,8 @@ permissions:
   pull-requests: read
   checks: read
   statuses: read 
+  contents: read
+  security-events: read
 
 jobs:
   detect_merge_bypass:
