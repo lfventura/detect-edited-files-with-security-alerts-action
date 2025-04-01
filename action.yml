@@ -1,0 +1,28 @@
+name: Detect files with security alerts edited by PR
+description: Detect files with security alerts edited by PR
+inputs:
+  github_token:
+    description: 'GitHub token for API access'
+    required: false
+    default: ${{ github.token }}
+  repo:
+    description: 'Repository name in the format owner/repo'
+    required: false
+  owner:
+    description: 'Repository owner'
+    required: false
+  before_sha:
+    description: 'SHA of the commit before the PR'
+    required: false
+  current_sha:
+    description: 'SHA of the commit after the PR'
+    required: false
+outputs:
+  impacted_file_touched:
+    description: 'True if impacted files were touched'
+runs:
+  using: 'node20'
+  main: 'dist/index.js'
+branding:
+  icon: 'shield'
+  color: 'red'
