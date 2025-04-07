@@ -11,6 +11,14 @@ export async function run(): Promise<void> {
     const beforeSha: string = core.getInput('before_sha') || github.context.payload.before;
     const currentSha: string = core.getInput('current_sha') || github.context.payload.after;
 
+    // If it is a new branch, we don't have to run the action
+    if (beforeSha === '0000000000000000000000000000000000000000') {
+      core.info('Branch created, skipping action.');
+      core.setOutput('impacted_file_touched', 'false');
+      core.info("Final decision: impacted_file_touched=false");
+      return;
+    }
+
     // Get changed files
     core.info('Fetching changed files...');
     const compareCommits = await octokit.rest.repos.compareCommits({
