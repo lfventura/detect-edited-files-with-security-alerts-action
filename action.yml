@@ -21,7 +21,7 @@ outputs:
   impacted_file_touched:
     description: 'True if impacted files were touched'
 runs:
-  using: 'node20'
+  using: 'node24'
   main: 'dist/index.js'
 branding:
   icon: 'shield'
